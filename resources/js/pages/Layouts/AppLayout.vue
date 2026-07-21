@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { login, register, logout, about, blog, home } from '@/routes';
+import { dashboard } from '@/routes/admin';
 
 const currentPath = window.location.pathname;
 const flash = computed(() => usePage().props.flash);
@@ -9,7 +11,7 @@ const user = computed(() => page.props.auth?.user ?? null);
 </script>
 
 <template>
-    <header class="px-4 mx-auto sm:px-6 relative pt-4 pb-4 sm:pb-4 border-b border-gray-200">
+    <header class="px-4 mx-auto sm:px-6 relative pt-4 pb-4 sm:pb-4 border-b border-gray-200 shadow-2xs">
         <nav class="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
             <div class="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                 <div class="flex items-center justify-between w-full md:w-auto">
@@ -28,34 +30,34 @@ const user = computed(() => page.props.auth?.user ?? null);
                 </div>
             </div>
             <div class="hidden md:flex md:space-x-10 list-none">
-                <Link href="/" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="home()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
                     Mir
                 </Link>
-                <Link href="/blog" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="blog()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
                     Blog
                 </Link>
-                <Link href="/about" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="about()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
                     About
                 </Link>
             </div>
             <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <Link v-if="!user" href="/login" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="!user" :href="login()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
                     Sign in
                 </Link>
-                <Link v-if="!user" href="/register" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="!user" :href="register()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
                     Register
                 </Link>
-                <Link v-if="$page.props.can?.accessDashboard" href="/admin" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="$page.props.can?.accessDashboard" :href="dashboard()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
                     Admin
                 </Link>
-                <Link v-if="user" href="/logout" method="post" as="button"
+                <Link v-if="user" :href="logout()" method="post" as="button"
                     class="mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full shadow cursor-pointer hover:bg-gray-50">
                     Logout
                 </Link>
             </div>
         </nav>
     </header>
-    <main class="min-h-[calc(100vh-72px)] container p-4 mx-auto max-w-4xl sm:px-6 bg-gray-50 shadow-sm">
+    <main class="min-h-[calc(100vh-72px)] container p-4 mx-auto max-w-4xl sm:px-6 shadow-sm">
         <aside v-if="flash.message || flash.error"
                 class="mb-4 px-4 py-2 rounded shadow-lg"
                 :class="flash.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white'">
