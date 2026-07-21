@@ -14,12 +14,10 @@ const props = defineProps<Props>();
 <template>
     <AppLayout>
         <Head title="Admin Dashboard"/>
-        <h1 class="text-3xl font-bold">Admin Dashboard</h1>
-
         <div class="space-y-6">
             <header>
-                <h1 class="text-2xl font-bold text-gray-800">Welcome Back, {{ user.name }}.</h1>
-                <p class="text-gray-600">Here's what's going on.</p>
+                <h1 class="text-3xl font-bold text-gray-800">Welcome Back, {{ user.name }}.</h1>
+                <p class="text-gray-600 mt-1">Here's what's going on.</p>
             </header>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="bg-white p-4 rounded-lg shadow-md">

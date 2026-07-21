@@ -30,24 +30,30 @@ const user = computed(() => page.props.auth?.user ?? null);
                 </div>
             </div>
             <div class="hidden md:flex md:space-x-10 list-none">
-                <Link :href="home()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="home()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900" :class="{ 'text-gray-700 font-semibold': $page.url === '/' }">
                     Mir
                 </Link>
-                <Link :href="blog()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="blog()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900" :class="{ 'text-gray-700 font-semibold': $page.url.startsWith('/blog') }">
                     Blog
                 </Link>
-                <Link :href="about()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900">
+                <Link :href="about()" class="text-base font-normal text-gray-500 list-none hover:text-gray-900" :class="{ 'text-gray-700 font-semibold': $page.url.startsWith('/about') }">
                     About
                 </Link>
             </div>
             <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <Link v-if="!user" :href="login()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="!user" :href="login()"
+                        class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 "
+                        :class="{ 'text-gray-700 font-semibold': $page.url.startsWith('/login') }">
                     Sign in
                 </Link>
-                <Link v-if="!user" :href="register()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="!user" :href="register()"
+                        class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 "
+                        :class="{ 'text-gray-700 font-semibold': $page.url.startsWith('/register') }">
                     Register
                 </Link>
-                <Link v-if="$page.props.can?.accessDashboard" :href="dashboard()" class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                <Link v-if="$page.props.can?.accessDashboard" :href="dashboard()"
+                        class="shadow mx-2 inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 "
+                        :class="{ 'text-gray-700 font-semibold': $page.url.startsWith('/admin') }">
                     Admin
                 </Link>
                 <Link v-if="user" :href="logout()" method="post" as="button"
