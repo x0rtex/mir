@@ -15,7 +15,7 @@ const props = defineProps<Props>();
                 Create New Post
             </Link>
         </div>
-        <ul><li v-for="post in props.posts" :key="post.id" class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mb-5">
+        <ul><li v-for="post in props.posts" :key="post.id" class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl mb-5">
             <article class="md:flex">
                 <section class="md:shrink-0">
                     <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://loremflickr.com/g/320/240/team">
