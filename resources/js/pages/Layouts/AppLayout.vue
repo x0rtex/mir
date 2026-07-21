@@ -8,24 +8,8 @@ const flash = computed(() => usePage().props.flash);
 </script>
 
 <template>
-    <!-- <div class="bg-gray-300">
-        <nav class="bg-gray-100 shadow-sm border-b border-gray-200">
-            <Link href="/" class="text-xl font-bold text-gray-900 px-2">Mir</Link>
-            <Link href="/blog" class="text-gray-700 px-2">Blog</Link>
-            <Link href="/about" class="text-gray-700 px-2">About</Link>
-            <Link v-if="!user" href="/login" class="text-gray-700 px-2">Login</Link>
-            <Link v-if="!user" href="/register" class="text-gray-700 px-2">Register</Link>
-            <form v-if="user" method="POST" action="/logout">
-                <button type="submit" class="text-gray-700">Logout</button>
-            </form>
-        </nav>
-        <main class="container mx-auto px-4">
-            <slot />
-        </main>
-    </div> -->
-
     <div class="px-4 mx-auto max-w-7xl sm:px-6">
-        <div class="relative pt-6 pb-12 sm:pb-12">
+        <div class="relative pt-4 pb-4 sm:pb-4">
             <nav class="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
                 <div class="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                     <div class="flex items-center justify-between w-full md:w-auto">

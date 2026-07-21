@@ -5,6 +5,7 @@ import AppLayout from './Layouts/AppLayout.vue';
 const page = usePage();
 const auth = page.props.auth;
 const user = auth ? auth.user : null;
+console.log(auth);
 </script>
 
 <template>

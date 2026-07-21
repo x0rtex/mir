@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['title', 'slug', 'body', 'excerpt', 'published_at'])]
 class Post extends Model
@@ -13,13 +14,18 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return ['published_at' => 'datetime'];
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    protected function casts(): array
+    public function comments(): HasMany
     {
-        return ['published_at' => 'datetime'];
+        return $this->hasMany(Comment::class)->latest();
     }
 }
