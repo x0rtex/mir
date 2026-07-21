@@ -49,6 +49,11 @@ const flash = computed(() => usePage().props.flash);
                         </Link>
                     </div>
                     <div class="inline-flex rounded-full shadow mx-2">
+                        <Link v-if="$page.props.can?.accessDashboard" href="/admin" class="inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                            Admin
+                        </Link>
+                    </div>
+                    <div class="inline-flex rounded-full shadow mx-2">
                         <form v-if="user" method="POST" action="/logout" class="inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50">
                             <button type="submit">Logout</button>
                         </form>
