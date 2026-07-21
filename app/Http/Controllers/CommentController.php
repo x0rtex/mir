@@ -21,7 +21,7 @@ class CommentController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Your comment has been posted.');
     }
 
     public function destroy(Comment $comment)

@@ -1,25 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '../Layouts/AppLayout.vue';
-import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
+import { Head, usePage, Link, Form } from '@inertiajs/vue3';
 
 interface Props {
     post: { id: number; title: string; user: { name: string } | null; published_at: string; body: string; excerpt: string; comments: { id: number; body: string; created_at: string; user_id: number; user: { id: number; name: string } | null; }[]; };
 }
 const props = defineProps<Props>();
-
-const form = useForm({
-    body: '',
-    post_id: props.post.id,
-});
-
 const user = usePage().props.auth?.user ?? null;
-
-const submit = () => {
-    form.post('/comments', {
-        preserveScroll: true,
-        onSuccess: () => form.reset(),
-    });
-};
 </script>
 
 <template>
@@ -49,7 +36,7 @@ const submit = () => {
 
         <div class="mx-auto max-w-3xl my-8">
             <h3 class="font-bold">Comments ({{ props.post.comments.length }})</h3>
-            <form @submit.prevent="submit">
+            <Form action="/comments" method="post" preserve-scroll #default="{ processing }">
                 <article v-for="comment in props.post.comments" :key="comment.id" class="flex flex-col">
                     <div class="border border-gray-200 rounded-md p-2 my-1.5">
                         <div class="flex gap-2 items-center">
@@ -66,14 +53,17 @@ const submit = () => {
 
                 <section v-if="user">
                     <div class="w-full my-2">
-                        <textarea v-model="form.body" class="bg-gray-100 rounded border border-gray-300 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-400 focus:outline-none focus:bg-gray-50" name="body" placeholder='Write a comment...' required></textarea>
+                        <input type="hidden" name="post_id" :value="props.post.id" />
+                        <textarea name="body" placeholder='Write a comment...' required class="bg-gray-100 rounded border border-gray-300 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-400 focus:outline-none focus:bg-gray-50"></textarea>
                     </div>
                     <div class="w-full flex justify-end">
-                        <input type='submit' class="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500" value='Post Comment'>
+                        <button type="submit" :disabled="processing"
+                            class="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500">
+                            {{ processing ? 'Posting...' : 'Post Comment' }}
+                        </button>
                     </div>
                 </section>
-            </form>
-
+            </Form>
         </div>
     </AppLayout>
 </template>
