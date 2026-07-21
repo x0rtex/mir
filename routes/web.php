@@ -23,3 +23,6 @@ Route::post('/login', [LoginController::class, 'store'])
 Route::post('/logout', [LogoutController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
+Route::inertia('/about', 'About')->name('about');
+Route::inertia('/blog', 'Posts/Index')->name('blog');
