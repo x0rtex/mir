@@ -38,11 +38,7 @@ const submit = () => {
                         </time>
                     </p>
                 </div>
-                <img
-                    src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c"
-                    alt="Featured image"
-                    class="mb-8 h-auto w-full"
-                />
+                <img src="https://loremflickr.com/g/1280/720/team" alt="Featured image" class="mb-8 h-auto w-full"/>
                 <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
                     <p>
                         {{ props.post.body }}

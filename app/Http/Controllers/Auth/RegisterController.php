@@ -31,6 +31,6 @@ class RegisterController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect()->intended(route('home'))->with('success', 'Account created! Welcome aboard.');
+        return redirect()->intended(route('home'))->with('message', 'Account created! Welcome aboard.');
     }
 }

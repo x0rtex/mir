@@ -8,9 +8,9 @@ const props = defineProps<Props>();
 
 <template>
     <AppLayout>
-        <Head title="Posts" />
+        <Head title="Blog" />
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-900">Posts</h1>
+            <h1 class="text-3xl font-bold text-gray-900">All Posts</h1>
             <Link href="/posts/create" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200 shadow-sm">
                 Create New Post
             </Link>

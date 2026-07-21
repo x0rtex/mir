@@ -43,9 +43,12 @@ class HandleInertiaRequests extends Middleware
             ],
             'can' => [
                 'accessDashboard' => $request->user()?->hasPermissionTo('access dashboard') ?? false,
+                'createPosts' => $request->user()?->hasPermissionTo('create posts') ?? false,
+                'editPosts' => $request->user()?->hasPermissionTo('edit posts') ?? false,
+                'deletePosts' => $request->user()?->hasPermissionTo('delete posts') ?? false,
             ],
             'flash' => [
-                'success' => $request->session()->get('success'),
+                'message' => $request->session()->get('message'),
                 'error' => $request->session()->get('error'),
             ],
         ];
