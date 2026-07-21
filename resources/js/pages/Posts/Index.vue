@@ -2,7 +2,7 @@
 import AppLayout from '../Layouts/AppLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
-interface Props { posts: { id: number; title: string; excerpt: string; published_at: datetime; }[] }
+interface Props { posts: { id: number; published_at: string; title: string; excerpt: string; slug: string; }[] }
 const props = defineProps<Props>();
 </script>
 

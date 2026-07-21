@@ -9,9 +9,23 @@ const props = defineProps<Props>();
 <template>
     <AppLayout>
         <Head title="Post"/>
-        <h1>{{ props.post.title }}</h1>
-        <p>Published by {{ props.post.user?.name ?? 'Unknown' }} on {{ props.post.published_at }}</p>
-        <p>{{ props.post.body }}</p>
-        <p>{{ props.post.excerpt }}</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="py-8">
+                    <h1 class="text-3xl font-bold mb-2">
+                        {{ props.post.title }}
+                    </h1>
+                    <p class="text-gray-500 text-sm">Published on <time datetime="">
+                        {{ props.post.published_at }}
+                    </time></p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c" alt="Featured image" class="w-full h-auto mb-8">
+                <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
+                    <p>
+                        {{ props.post.body }}
+                    </p>
+                </div>
+            </div>
+        </div>
     </AppLayout>
 </template>
