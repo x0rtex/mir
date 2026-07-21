@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PostController;
 
 Route::inertia('/', 'Home')->name('home');
 
@@ -25,4 +26,5 @@ Route::post('/logout', [LogoutController::class, 'destroy'])
     ->name('logout');
 
 Route::inertia('/about', 'About')->name('about');
-Route::inertia('/blog', 'Posts/Index')->name('blog');
+Route::get('/blog', [PostController::class, 'index'])->name('blog');
+Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
