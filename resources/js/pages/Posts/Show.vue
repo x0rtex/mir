@@ -3,7 +3,7 @@ import AppLayout from '../Layouts/AppLayout.vue';
 import { Head, usePage, Link, Form } from '@inertiajs/vue3';
 
 interface Props {
-    post: { id: number; title: string; user: { name: string } | null; published_at: string; body: string; excerpt: string; comments: { id: number; body: string; created_at: string; user_id: number; user: { id: number; name: string } | null; }[]; };
+    post: { id: number; title: string; user: { name: string } | null; published_at: string; body: string; excerpt: string; body_html: string; comments: { id: number; body: string; created_at: string; user_id: number; user: { id: number; name: string } | null; }[]; };
 }
 const props = defineProps<Props>();
 const user = usePage().props.auth?.user ?? null;
@@ -26,11 +26,7 @@ const user = usePage().props.auth?.user ?? null;
                     </p>
                 </div>
                 <img src="https://loremflickr.com/g/1280/720/team" alt="Featured image" class="mb-8 h-auto w-full"/>
-                <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
-                    <p>
-                        {{ props.post.body }}
-                    </p>
-                </div>
+                <div class="prose max-w-none mx-auto" v-html="props.post.body_html"></div>
             </div>
         </div>
 
