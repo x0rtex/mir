@@ -9,14 +9,18 @@ const flash = computed(() => usePage().props.flash);
 const showFlash = ref(false);
 const flashMessage = ref('');
 const flashType = ref('');
-watch(flash, (val) => {
-    if (val?.message || val?.error) {
-        flashMessage.value = val.message ?? val.error ?? '';
-        flashType.value = val.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
-        showFlash.value = true;
-        setTimeout(() => (showFlash.value = false), 3000);
-    }
-}, { immediate: true });
+watch(
+    flash,
+    (val) => {
+        if (val?.message || val?.error) {
+            flashMessage.value = val.message ?? val.error ?? '';
+            flashType.value = val.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
+            showFlash.value = true;
+            setTimeout(() => (showFlash.value = false), 3000);
+        }
+    },
+    { immediate: true },
+);
 </script>
 
 <template>
@@ -134,16 +138,22 @@ watch(flash, (val) => {
             </div>
         </nav>
     </header>
-    <main class="container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6">
+    <main
+        class="relative container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6"
+    >
         <Transition
             enter-active-class="transition duration-300 ease-out"
-            enter-from-class="-translate-y-3 opacity-0"
+            enter-from-class="-translate-y-2 opacity-0"
             enter-to-class="translate-y-0 opacity-100"
             leave-active-class="transition duration-200 ease-in"
             leave-from-class="translate-y-0 opacity-100"
-            leave-to-class="-translate-y-3 opacity-0"
+            leave-to-class="-translate-y-2 opacity-0"
         >
-            <aside v-if="showFlash" class="mb-4 rounded px-4 py-2 shadow-lg" :class="flashType">
+            <aside
+                v-if="showFlash"
+                class="absolute top-2 left-1/2 -translate-x-1/2 transform rounded px-4 py-2 shadow-lg"
+                :class="flashType"
+            >
                 {{ flashMessage }}
             </aside>
         </Transition>

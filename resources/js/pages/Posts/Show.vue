@@ -32,7 +32,7 @@ const user = usePage().props.auth?.user ?? null;
     <Head :title="props.post.title" />
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl">
-            <div class="py-8">
+            <div class="pt-4 pb-8">
                 <h1 class="mb-2 text-3xl font-bold">
                     {{ props.post.title }}
                 </h1>
@@ -54,12 +54,14 @@ const user = usePage().props.auth?.user ?? null;
 
     <div class="mx-auto my-8 max-w-3xl">
         <h3 class="font-bold">Comments ({{ props.post.comments.length }})</h3>
-        <Form action="/comments" method="post" preserve-scroll resetOnSuccess #default="{ processing }">
-            <article
-                v-for="comment in props.post.comments"
-                :key="comment.id"
-                class="flex flex-col"
-            >
+        <Form
+            action="/comments"
+            method="post"
+            preserve-scroll
+            resetOnSuccess
+            #default="{ processing }"
+        >
+            <article v-for="comment in props.post.comments" :key="comment.id" class="flex flex-col">
                 <div class="my-1.5 rounded-md border border-gray-200 p-2">
                     <div class="flex items-center gap-2">
                         <img
