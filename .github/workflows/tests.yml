@@ -31,9 +31,13 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Setup Environment
+        run: |
+          cp .env.example .env
+          touch database/database.sqlite
+
       - name: Setup Database
         run: |
-          touch database/database.sqlite
           echo "DB_CONNECTION=sqlite" >> .env
           echo "DB_DATABASE=${{ github.workspace }}/database/database.sqlite" >> .env
 
