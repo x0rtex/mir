@@ -45,36 +45,54 @@ const user = usePage().props.auth?.user ?? null;
                         </time>
                     </p>
                 </div>
-                <img src="https://loremflickr.com/g/1280/720/team" alt="Featured image" class="mb-8 h-auto w-full"/>
-                <div class="prose max-w-none mx-auto" v-html="props.post.body_html"></div>
+                <img
+                    src="https://loremflickr.com/g/1280/720/team"
+                    alt="Featured image"
+                    class="mb-8 h-auto w-full"
+                />
+                <div class="mx-auto prose max-w-none" v-html="props.post.body_html"></div>
             </div>
         </div>
 
-        <div class="mx-auto max-w-3xl my-8">
+        <div class="mx-auto my-8 max-w-3xl">
             <h3 class="font-bold">Comments ({{ props.post.comments.length }})</h3>
             <Form action="/comments" method="post" preserve-scroll #default="{ processing }">
-                <article v-for="comment in props.post.comments" :key="comment.id" class="flex flex-col">
-                    <div class="border border-gray-200 rounded-md p-2 my-1.5">
-                        <div class="flex gap-2 items-center">
-                            <img class="object-cover w-8 h-8 rounded-full border-2 border-emerald-400  shadow-emerald-400">
+                <article
+                    v-for="comment in props.post.comments"
+                    :key="comment.id"
+                    class="flex flex-col"
+                >
+                    <div class="my-1.5 rounded-md border border-gray-200 p-2">
+                        <div class="flex items-center gap-2">
+                            <img
+                                class="h-8 w-8 rounded-full border-2 border-emerald-400 object-cover shadow-emerald-400"
+                            />
                             <h3 class="font-bold">
                                 {{ comment.user?.name }}
                             </h3>
                         </div>
-                        <p class="text-gray-600 mt-2">
+                        <p class="mt-2 text-gray-600">
                             {{ comment.body }}
                         </p>
                     </div>
                 </article>
 
                 <section v-if="user">
-                    <div class="w-full my-2">
+                    <div class="my-2 w-full">
                         <input type="hidden" name="post_id" :value="props.post.id" />
-                        <textarea name="body" placeholder='Write a comment...' required class="bg-gray-100 rounded border border-gray-300 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-400 focus:outline-none focus:bg-gray-50"></textarea>
+                        <textarea
+                            name="body"
+                            placeholder="Write a comment..."
+                            required
+                            class="h-20 w-full resize-none rounded border border-gray-300 bg-gray-100 px-3 py-2 leading-normal font-medium placeholder-gray-400 focus:bg-gray-50 focus:outline-none"
+                        ></textarea>
                     </div>
-                    <div class="w-full flex justify-end">
-                        <button type="submit" :disabled="processing"
-                            class="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500">
+                    <div class="flex w-full justify-end">
+                        <button
+                            type="submit"
+                            :disabled="processing"
+                            class="rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
+                        >
                             {{ processing ? 'Posting...' : 'Post Comment' }}
                         </button>
                     </div>
