@@ -9,7 +9,9 @@ const form = useForm({
     remember: false,
 });
 
-const submit = () => { form.post('/login') };
+const submit = () => {
+    form.post('/login')
+};
 </script>
 
 <template>
