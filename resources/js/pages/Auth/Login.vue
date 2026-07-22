@@ -10,7 +10,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post("/login", { data: { redirect: window.location.pathname } })
+    form.post('/login', { redirect: window.location.pathname })
 };
 </script>
 

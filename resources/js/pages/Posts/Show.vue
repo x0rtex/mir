@@ -36,7 +36,7 @@ const user = usePage().props.auth?.user ?? null;
                 <article v-for="comment in props.post.comments" :key="comment.id" class="flex flex-col">
                     <div class="border border-gray-200 rounded-md p-2 my-1.5">
                         <div class="flex gap-2 items-center">
-                            <img v-if="comment.user?.avatar" :src="comment.user.avatar" class="object-cover w-8 h-8 rounded-full border-2 border-emerald-400  shadow-emerald-400">
+                            <img class="object-cover w-8 h-8 rounded-full border-2 border-emerald-400  shadow-emerald-400">
                             <h3 class="font-bold">
                                 {{ comment.user?.name }}
                             </h3>
