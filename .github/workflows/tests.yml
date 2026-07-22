@@ -31,6 +31,12 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Setup Database
+        run: |
+          touch database/database.sqlite
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=${{ github.workspace }}/database/database.sqlite" >> .env
+
       - name: Setup Application
         run: composer setup
 
