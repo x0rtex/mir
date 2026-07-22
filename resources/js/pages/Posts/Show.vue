@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppLayout from '../Layouts/AppLayout.vue';
 import { Head, usePage, Form } from '@inertiajs/vue3';
+import AppLayout from '../Layouts/AppLayout.vue';
 
 interface Props {
     post: { id: number; title: string; user: { name: string } | null; published_at: string; body_html: string; excerpt: string; comments: { id: number; body: string; created_at: string; user_id: number; user: { id: number; name: string } | null; }[]; };

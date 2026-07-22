@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { Link, usePage, router } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { login, register, logout, about, blog, home } from '@/routes';
 import { dashboard } from '@/routes/admin';
 
-const currentPath = window.location.pathname;
 const flash = computed(() => usePage().props.flash);
 const page = usePage();
 const user = computed(() => page.props.auth?.user ?? null);
