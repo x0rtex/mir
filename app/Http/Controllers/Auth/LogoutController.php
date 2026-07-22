@@ -16,6 +16,7 @@ class LogoutController extends Controller
         if ($request->redirect) {
             return redirect($request->redirect)->with('message', 'You have been logged out.');
         }
+
         return redirect()->route('home')->with('message', 'You have been logged out.');
     }
 }
