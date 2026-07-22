@@ -34,7 +34,7 @@ const submit = () => {
                     {{ form.processing ? 'Registering...' : 'Register' }}
                 </button>
             </form>
-            <p class="p-2 text-sm">Already have an account? <Link :href="login()">Login here</Link></p>
+            <p class="p-2 text-sm">Already have an account? <Link :href="login()" view-transition>Login here</Link></p>
         </div>
     </AppLayout>
 </template>
