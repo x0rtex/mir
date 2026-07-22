@@ -9,9 +9,7 @@ const form = useForm({
     remember: false,
 });
 
-const submit = () => {
-    form.post('/login', { redirect: window.location.pathname })
-};
+const submit = () => { form.post('/login') };
 </script>
 
 <template>
