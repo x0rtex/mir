@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Inertia\Inertia;
+use Inertia\ExceptionResponse;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -28,6 +30,14 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::before(function ($user) {
             return $user->hasRole('admin') ? true : null;
+        });
+
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response) {
+            if (in_array($response->statusCode(), [403, 404, 500, 503])) {
+                return $response->render('Error', [
+                    'status' => $response->statusCode(),
+                ]);
+            }
         });
     }
 

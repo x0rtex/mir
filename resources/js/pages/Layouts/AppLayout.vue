@@ -53,6 +53,15 @@ const user = computed(() => page.props.auth?.user ?? null);
                             </svg>
                         </button>
                     </div>
+                    <Link
+                        v-if="$page.props.can?.accessDashboard"
+                        :href="dashboard()"
+                        view-transition
+                        class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
+                        :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/admin') }"
+                    >
+                        Control Center
+                    </Link>
                 </div>
             </div>
             <div class="hidden list-none md:flex md:space-x-10">
@@ -103,15 +112,6 @@ const user = computed(() => page.props.auth?.user ?? null);
                     Register
                 </Link>
                 <Link
-                    v-if="$page.props.can?.accessDashboard"
-                    :href="dashboard()"
-                    view-transition
-                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/admin') }"
-                >
-                    Admin
-                </Link>
-                <Link
                     v-if="user"
                     :href="logout()"
                     method="post"
@@ -120,6 +120,14 @@ const user = computed(() => page.props.auth?.user ?? null);
                     class="mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
                 >
                     Logout
+                </Link>
+                <Link
+                    v-if="user"
+                    view-transition
+                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
+                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/profile') }"
+                >
+                    My Profile
                 </Link>
             </div>
         </nav>

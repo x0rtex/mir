@@ -8,5 +8,8 @@ createInertiaApp({
     progress: {
         color: '#4B5563',
     },
-    layout: () => AppLayout,
+    layout: (name: string) => {
+        if (name === 'Error') return null;
+        return AppLayout;
+    },
 });

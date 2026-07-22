@@ -4,6 +4,6 @@ import { Head } from '@inertiajs/vue3';
 
 <template>
     <Head title="About" />
-    <h1>About Me</h1>
-    <p>Your bio here.</p>
+    <h1 class="text-3xl font-bold mb-3">About Me</h1>
+    <p class="text-lg">Your bio here.</p>
 </template>

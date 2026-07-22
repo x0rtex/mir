@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 
 <template>
     <Head title="Home" />
+    <h1 class="text-3xl font-bold mb-3">Welcome to Mir!</h1>
     <div class="grid grid-cols-2 gap-5 md:grid-cols-3">
         <img
             class="h-auto max-w-full rounded-lg"

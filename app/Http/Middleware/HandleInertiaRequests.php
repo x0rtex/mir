@@ -48,8 +48,8 @@ class HandleInertiaRequests extends Middleware
                 'deletePosts' => $request->user()?->hasPermissionTo('delete posts') ?? false,
             ],
             'flash' => [
-                'message' => $request->session()->get('message'),
-                'error' => $request->session()->get('error'),
+                'message' => fn () => $request->session()->get('message'),
+                'error' => fn () => $request->session()->get('error'),
             ],
         ];
     }
