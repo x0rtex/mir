@@ -29,7 +29,7 @@ const user = usePage().props.auth?.user ?? null;
 </script>
 
 <template>
-    <Head title="Post" />
+    <Head :title="props.post.title" />
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl">
             <div class="py-8">

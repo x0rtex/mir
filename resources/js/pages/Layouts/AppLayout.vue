@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, watch, ref } from 'vue';
 import { login, register, logout, about, blog, home } from '@/routes';
 import { dashboard } from '@/routes/admin';
 
+const user = computed(() => usePage().props.auth?.user ?? null);
 const flash = computed(() => usePage().props.flash);
-const page = usePage();
-const user = computed(() => page.props.auth?.user ?? null);
+const showFlash = ref(false);
+const flashMessage = ref('');
+const flashType = ref('');
+watch(flash, (val) => {
+    if (val?.message || val?.error) {
+        flashMessage.value = val.message ?? val.error ?? '';
+        flashType.value = val.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
+        showFlash.value = true;
+        setTimeout(() => (showFlash.value = false), 3000);
+    }
+}, { immediate: true });
 </script>
 
 <template>
@@ -121,25 +131,22 @@ const user = computed(() => page.props.auth?.user ?? null);
                 >
                     Logout
                 </Link>
-                <Link
-                    v-if="user"
-                    view-transition
-                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/profile') }"
-                >
-                    My Profile
-                </Link>
             </div>
         </nav>
     </header>
     <main class="container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6">
-        <aside
-            v-if="flash?.message || flash?.error"
-            class="mb-4 rounded px-4 py-2 shadow-lg"
-            :class="flash?.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
+        <Transition
+            enter-active-class="transition duration-300 ease-out"
+            enter-from-class="-translate-y-3 opacity-0"
+            enter-to-class="translate-y-0 opacity-100"
+            leave-active-class="transition duration-200 ease-in"
+            leave-from-class="translate-y-0 opacity-100"
+            leave-to-class="-translate-y-3 opacity-0"
         >
-            {{ flash?.message || flash?.error }}
-        </aside>
+            <aside v-if="showFlash" class="mb-4 rounded px-4 py-2 shadow-lg" :class="flashType">
+                {{ flashMessage }}
+            </aside>
+        </Transition>
         <slot />
     </main>
     <footer class="bg-gray-900 p-4 text-center text-white">
