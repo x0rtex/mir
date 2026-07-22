@@ -41,6 +41,7 @@ const user = usePage().props.auth?.user ?? null;
                     <time datetime="">
                         {{ props.post.published_at }}
                     </time>
+                    by {{ props.post.user.name }}
                 </p>
             </div>
             <img

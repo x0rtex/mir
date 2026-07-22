@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +25,18 @@ class Post extends Model
         return ['published_at' => 'datetime'];
     }
 
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('M j, Y');
+    }
+
+    protected function bodyHtml(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Str::markdown($this->body),
+        );
+    }
+
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
@@ -33,10 +47,5 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->latest();
-    }
-
-    public function getBodyHtmlAttribute(): string
-    {
-        return Str::markdown($this->body);
     }
 }
