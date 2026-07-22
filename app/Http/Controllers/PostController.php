@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index(): Response
     {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
 
         return Inertia::render('Posts/Index', compact('posts'));
     }

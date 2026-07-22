@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 
+interface PaginatedPosts {
+    data: { id: number; published_at: string; title: string; excerpt: string; slug: string }[];
+    links: { url: string | null; label: string; active: boolean }[];
+    meta: { current_page: number; last_page: number; total: number; per_page: number };
+    total: number;
+}
+
 interface Props {
-    posts: { id: number; published_at: string; title: string; excerpt: string; slug: string }[];
+    posts: PaginatedPosts;
 }
 const props = defineProps<Props>();
 </script>
@@ -20,7 +27,7 @@ const props = defineProps<Props>();
     </div>
     <ul>
         <li
-            v-for="post in props.posts"
+            v-for="post in props.posts.data"
             :key="post.id"
             class="mb-5 max-w-md overflow-hidden rounded-xl bg-white shadow-md md:max-w-4xl"
         >
@@ -48,4 +55,14 @@ const props = defineProps<Props>();
             </article>
         </li>
     </ul>
+    <div class="mt-8 flex justify-center gap-2">
+        <Link
+            v-for="link in props.posts.links"
+            :key="link.label"
+            :href="link.url ?? '#'"
+            v-html="link.label"
+            class="rounded px-3 py-1"
+            :class="link.active ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100'"
+        />
+    </div>
 </template>
