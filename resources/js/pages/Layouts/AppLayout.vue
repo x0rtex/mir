@@ -126,11 +126,11 @@ const user = computed(() => page.props.auth?.user ?? null);
     </header>
     <main class="container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6">
         <aside
-            v-if="flash.message || flash.error"
+            v-if="flash?.message || flash?.error"
             class="mb-4 rounded px-4 py-2 shadow-lg"
-            :class="flash.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
+            :class="flash?.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
         >
-            {{ flash.message || flash.error }}
+            {{ flash?.message || flash?.error }}
         </aside>
         <slot />
     </main>

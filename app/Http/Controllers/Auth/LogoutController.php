@@ -14,10 +14,6 @@ class LogoutController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        if ($request->redirect) {
-            return redirect($request->redirect)->with('message', 'You have been logged out.');
-        }
-
         return redirect()->route('home')->with('message', 'You have been logged out.');
     }
 }
