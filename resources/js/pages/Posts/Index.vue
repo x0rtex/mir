@@ -54,15 +54,15 @@ const props = defineProps<Props>();
                 </section>
             </article>
         </li>
+        <div class="flex justify-center gap-4 mt-8">
+            <Link v-if="props.posts.prev_page_url" :href="props.posts.prev_page_url"
+                class="px-4 py-2 bg-white rounded shadow hover:bg-gray-50">
+                Previous
+            </Link>
+            <Link v-if="props.posts.next_page_url" :href="props.posts.next_page_url"
+                class="px-4 py-2 bg-white rounded shadow hover:bg-gray-50">
+                Next
+            </Link>
+        </div>
     </ul>
-    <div class="mt-8 flex justify-center gap-2">
-        <Link
-            v-for="link in props.posts.links"
-            :key="link.label"
-            :href="link.url ?? '#'"
-            v-html="link.label"
-            class="rounded px-3 py-1"
-            :class="link.active ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100'"
-        />
-    </div>
 </template>
