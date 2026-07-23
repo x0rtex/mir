@@ -84,7 +84,7 @@ const confirmDelete = () => {
                 <button
                     type="submit"
                     :disabled="profileForm.processing"
-                    class="mt-2 w-full cursor-pointer rounded border p-2 shadow-sm"
+                    class="mt-2 w-full cursor-pointer rounded border p-2 shadow-sm hover:bg-gray-200"
                 >
                     {{ profileForm.processing ? 'Saving...' : 'Save' }}
                 </button>
@@ -96,7 +96,9 @@ const confirmDelete = () => {
                     alt="PFP"
                     class="mx-auto mb-3 h-36 w-36 rounded-full"
                 />
-                <label class="w-full justify-center rounded border p-2 text-center shadow-sm">
+                <label
+                    class="w-full cursor-pointer justify-center rounded border p-2 text-center shadow-sm hover:bg-gray-200"
+                >
                     Upload Avatar
                     <input type="file" accept="image/*" class="hidden" @change="selectAvatar" />
                 </label>
@@ -141,7 +143,7 @@ const confirmDelete = () => {
             <button
                 type="submit"
                 :disabled="passwordForm.processing"
-                class="mt-2 w-full rounded border p-2 shadow-sm"
+                class="mt-2 w-full cursor-pointer rounded border p-2 shadow-sm hover:bg-gray-200"
             >
                 {{ passwordForm.processing ? 'Updating...' : 'Update Password' }}
             </button>

@@ -142,13 +142,13 @@ const deleteComment = (commentId: number) => {
                             <button
                                 @click="saveEdit(comment.id)"
                                 type="button"
-                                class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
+                                class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white hover:bg-indigo-600"
                             >
                                 Save Comment
                             </button>
                             <button
                                 @click="cancelEdit"
-                                class="cursor-pointer rounded-md bg-gray-200 px-2.5 py-1.5 text-sm"
+                                class="cursor-pointer rounded-md bg-gray-200 px-2.5 py-1.5 text-sm hover:bg-gray-300"
                             >
                                 Cancel
                             </button>
@@ -172,7 +172,7 @@ const deleteComment = (commentId: number) => {
                     <button
                         type="submit"
                         :disabled="processing"
-                        class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
+                        class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white hover:bg-indigo-600"
                     >
                         {{ processing ? 'Posting...' : 'Post Comment' }}
                     </button>
