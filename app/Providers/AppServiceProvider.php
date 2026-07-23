@@ -3,13 +3,13 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
-use Inertia\Inertia;
-use Inertia\ExceptionResponse;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home')->name('home');
@@ -37,10 +38,20 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show'])
 Route::post('/comments', [CommentController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])
+    ->middleware('auth')
+    ->name('comments.update');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->middleware('auth')
     ->name('comments.destroy');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'show'])->name('show');
+    Route::post('/', [ProfileController::class, 'update'])->name('update');
+    Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password');
+    Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
 });

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, usePage, Form } from '@inertiajs/vue3';
+import { Head, usePage, Form, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 interface Props {
     post: {
@@ -20,12 +21,46 @@ interface Props {
             user: {
                 id: number;
                 name: string;
+                avatar_url?: string;
             } | null;
         }[];
     };
 }
 const props = defineProps<Props>();
 const user = usePage().props.auth?.user ?? null;
+
+const editingCommentId = ref<number | null>(null);
+const editBody = ref('');
+
+const startEdit = (comment: { id: number; body: string }) => {
+    editingCommentId.value = comment.id;
+    editBody.value = comment.body;
+};
+
+const cancelEdit = () => {
+    editingCommentId.value = null;
+    editBody.value = '';
+};
+
+const saveEdit = (commentId: number) => {
+    router.put(
+        `/comments/${commentId}`,
+        { body: editBody.value },
+        {
+            preserveScroll: true,
+            onSuccess: () => {
+                editingCommentId.value = null;
+                editBody.value = '';
+            },
+        },
+    );
+};
+
+const deleteComment = (commentId: number) => {
+    if (confirm('Delete this comment?')) {
+        router.delete(`/comments/${commentId}`, { preserveScroll: true });
+    }
+};
 </script>
 
 <template>
@@ -41,11 +76,11 @@ const user = usePage().props.auth?.user ?? null;
                     <time datetime="">
                         {{ props.post.published_at }}
                     </time>
-                    by {{ props.post.user.name }}
+                    by {{ props.post.user?.name ?? 'Unknown Author' }}
                 </p>
             </div>
             <img
-                src="https://loremflickr.com/g/1280/720/team"
+                src="https://loremflickr.com/1280/720/kitten"
                 alt="Featured image"
                 class="mb-8 h-auto w-full"
             />
@@ -66,15 +101,60 @@ const user = usePage().props.auth?.user ?? null;
                 <div class="my-1.5 rounded-md border border-gray-200 p-2">
                     <div class="flex items-center gap-2">
                         <img
-                            class="h-8 w-8 rounded-full border-2 border-emerald-400 object-cover shadow-emerald-400"
+                            :src="comment.user?.avatar_url ?? 'https://placehold.co/32x32'"
+                            class="h-8 w-8 rounded-full border object-cover"
                         />
                         <h3 class="font-bold">
                             {{ comment.user?.name }}
                         </h3>
+                        <div class="ml-auto flex items-center gap-1">
+                            <button
+                                v-if="user?.id === comment.user_id"
+                                @click="
+                                    if (editingCommentId === comment.id) {
+                                        cancelEdit();
+                                    } else {
+                                        startEdit(comment);
+                                    }
+                                "
+                                type="button"
+                                class="cursor-pointer px-1 text-gray-400 hover:text-gray-600"
+                            >
+                                ✎
+                            </button>
+                            <button
+                                v-if="user?.id === comment.user_id"
+                                @click="deleteComment(comment.id)"
+                                type="button"
+                                class="cursor-pointer px-1 text-red-400 hover:text-red-600"
+                            >
+                                X
+                            </button>
+                        </div>
                     </div>
-                    <p class="mt-2 text-gray-600">
-                        {{ comment.body }}
-                    </p>
+                    <div v-if="editingCommentId === comment.id">
+                        <textarea
+                            v-model="editBody"
+                            rows="3"
+                            class="mt-2 w-full rounded border p-2 text-sm"
+                        ></textarea>
+                        <div class="mt-1 flex gap-2">
+                            <button
+                                @click="saveEdit(comment.id)"
+                                type="button"
+                                class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
+                            >
+                                Save Comment
+                            </button>
+                            <button
+                                @click="cancelEdit"
+                                class="cursor-pointer rounded-md bg-gray-200 px-2.5 py-1.5 text-sm"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <p v-else class="mt-2 text-gray-600">{{ comment.body }}</p>
                 </div>
             </article>
 
@@ -92,7 +172,7 @@ const user = usePage().props.auth?.user ?? null;
                     <button
                         type="submit"
                         :disabled="processing"
-                        class="rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
+                        class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white"
                     >
                         {{ processing ? 'Posting...' : 'Post Comment' }}
                     </button>

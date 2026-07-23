@@ -127,6 +127,15 @@ watch(
                 </Link>
                 <Link
                     v-if="user"
+                    href="/profile"
+                    view-transition
+                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
+                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/profile') }"
+                >
+                    Profile
+                </Link>
+                <Link
+                    v-if="user"
                     :href="logout()"
                     method="post"
                     as="button"

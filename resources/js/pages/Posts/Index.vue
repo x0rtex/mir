@@ -35,7 +35,7 @@ const props = defineProps<Props>();
                 <section class="md:shrink-0">
                     <img
                         class="h-48 w-full object-cover md:h-full md:w-48"
-                        src="https://loremflickr.com/g/320/240/team"
+                        src="https://loremflickr.com/320/240/kitten"
                     />
                 </section>
                 <section class="p-8">
@@ -54,13 +54,19 @@ const props = defineProps<Props>();
                 </section>
             </article>
         </li>
-        <div class="flex justify-center gap-4 mt-8">
-            <Link v-if="props.posts.prev_page_url" :href="props.posts.prev_page_url"
-                class="px-4 py-2 bg-white rounded shadow hover:bg-gray-50">
+        <div class="mt-8 flex justify-center gap-4">
+            <Link
+                v-if="props.posts.prev_page_url"
+                :href="props.posts.prev_page_url"
+                class="rounded bg-white px-4 py-2 shadow hover:bg-gray-50"
+            >
                 Previous
             </Link>
-            <Link v-if="props.posts.next_page_url" :href="props.posts.next_page_url"
-                class="px-4 py-2 bg-white rounded shadow hover:bg-gray-50">
+            <Link
+                v-if="props.posts.next_page_url"
+                :href="props.posts.next_page_url"
+                class="rounded bg-white px-4 py-2 shadow hover:bg-gray-50"
+            >
                 Next
             </Link>
         </div>

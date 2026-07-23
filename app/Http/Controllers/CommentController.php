@@ -25,6 +25,19 @@ class CommentController extends Controller
         return redirect()->back()->with('message', 'Your comment has been posted.');
     }
 
+    public function update(Request $request, Comment $comment): RedirectResponse
+    {
+        if (Auth::id() !== $comment->user_id) {
+            abort(403);
+        }
+
+        $validated = $request->validate(['body' => 'required|string']);
+
+        $comment->update($validated);
+
+        return redirect()->back()->with('message', 'Comment updated.');
+    }
+
     public function destroy(Comment $comment): RedirectResponse
     {
         if (Auth::id() !== $comment->user_id) {

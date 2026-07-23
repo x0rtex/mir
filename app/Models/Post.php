@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use DateTimeInterface;
 use Database\Factories\PostFactory;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
