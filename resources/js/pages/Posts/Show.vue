@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, usePage, Form, router } from '@inertiajs/vue3';
+import { Form, Head, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 interface Props {

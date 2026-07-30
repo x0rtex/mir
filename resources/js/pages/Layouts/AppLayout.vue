@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed, watch, ref } from 'vue';
-import { login, register, logout, about, blog, home } from '@/routes';
+import { computed, ref, watch } from 'vue';
+import { about, blog, home, login, logout, register } from '@/routes';
 import { dashboard } from '@/routes/admin';
 
 const user = computed(() => usePage().props.auth?.user ?? null);

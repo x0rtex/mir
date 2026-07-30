@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Head, usePage, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import { update, password, destroy } from '@/routes/profile';
+import { destroy, password, update } from '@/routes/profile';
 
 const user = usePage().props.auth?.user ?? null;
 
