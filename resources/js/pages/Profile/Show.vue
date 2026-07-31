@@ -52,11 +52,11 @@ const confirmDelete = () => {
 
 <template>
     <Head title="My Profile" />
-    <h1 class="text-3xl font-bold">My Profile</h1>
+    <h1 class="text-3xl font-bold text-surface-900 dark:text-surface-100">My Profile</h1>
 
     <!-- Personal Information -->
     <section class="mt-8">
-        <h2 class="mb-2 text-2xl font-bold">Personal Information</h2>
+        <h2 class="mb-2 text-2xl font-bold text-surface-900 dark:text-surface-100">Personal Information</h2>
         <div class="flex gap-4">
             <form @submit.prevent="updateProfile" class="flex-3/4">
                 <label
@@ -64,7 +64,7 @@ const confirmDelete = () => {
                         type="text"
                         autocomplete="name"
                         :placeholder="user.name"
-                        class="mb-2 w-full rounded border p-2 shadow-sm"
+                        class="mb-2 w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
                         v-model="profileForm.name"
                 /></label>
                 <p v-if="profileForm.errors.name" class="text-red-500">
@@ -75,7 +75,7 @@ const confirmDelete = () => {
                         type="email"
                         autocomplete="email"
                         :placeholder="user.email"
-                        class="mb-2 w-full rounded border p-2 shadow-sm"
+                        class="mb-2 w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
                         v-model="profileForm.email"
                 /></label>
                 <p v-if="profileForm.errors.email" class="text-red-500">
@@ -84,7 +84,7 @@ const confirmDelete = () => {
                 <button
                     type="submit"
                     :disabled="profileForm.processing"
-                    class="mt-2 w-full cursor-pointer rounded border p-2 shadow-sm hover:bg-gray-200"
+                    class="mt-2 w-full cursor-pointer rounded border border-transparent bg-accent-600 p-2 font-semibold text-surface-50 shadow-sm hover:bg-accent-500 dark:bg-accent-500 dark:text-surface-950 dark:hover:bg-accent-400"
                 >
                     {{ profileForm.processing ? 'Saving...' : 'Save' }}
                 </button>
@@ -92,12 +92,12 @@ const confirmDelete = () => {
 
             <div class="flex grow flex-col items-center">
                 <img
-                    :src="avatarPreview ?? user?.avatar ?? 'https://placehold.co/36x36'"
+                    :src="avatarPreview ?? user?.avatar_url ?? 'https://placehold.co/36x36'"
                     alt="PFP"
                     class="mx-auto mb-3 h-36 w-36 rounded-full"
                 />
                 <label
-                    class="w-full cursor-pointer justify-center rounded border p-2 text-center shadow-sm hover:bg-gray-200"
+                    class="w-full cursor-pointer justify-center rounded border border-surface-300 bg-surface-200 p-2 text-center text-surface-900 shadow-sm hover:bg-surface-100 dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100 dark:hover:bg-surface-700"
                 >
                     Upload Avatar
                     <input type="file" accept="image/*" class="hidden" @change="selectAvatar" />
@@ -108,7 +108,7 @@ const confirmDelete = () => {
 
     <!-- Change Password -->
     <section class="mt-8">
-        <h2 class="mb-2 text-2xl font-bold">Change Password</h2>
+        <h2 class="mb-2 text-2xl font-bold text-surface-900 dark:text-surface-100">Change Password</h2>
         <form @submit.prevent="updatePassword">
             <label
                 >Current Password<input
@@ -143,7 +143,7 @@ const confirmDelete = () => {
             <button
                 type="submit"
                 :disabled="passwordForm.processing"
-                class="mt-2 w-full cursor-pointer rounded border p-2 shadow-sm hover:bg-gray-200"
+                    class="mt-2 w-full cursor-pointer rounded border border-transparent bg-accent-600 p-2 font-semibold text-surface-50 shadow-sm hover:bg-accent-500 dark:bg-accent-500 dark:text-surface-950 dark:hover:bg-accent-400"
             >
                 {{ passwordForm.processing ? 'Updating...' : 'Update Password' }}
             </button>
@@ -152,14 +152,14 @@ const confirmDelete = () => {
 
     <!-- Danger Zone -->
     <section class="my-8">
-        <h2 class="mb-2 text-2xl font-bold text-red-600">Danger Zone</h2>
-        <p class="mb-4 text-sm text-red-500">
+        <h2 class="mb-2 text-2xl font-bold text-red-600 dark:text-red-400">Danger Zone</h2>
+        <p class="mb-4 text-sm text-red-500 dark:text-red-400">
             Once you delete your account, there is no going back.
         </p>
         <button
             @click="confirmDelete"
             :disabled="deleteForm.processing"
-            class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:opacity-50"
+            class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:opacity-50 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800"
         >
             {{ deleteForm.processing ? 'Deleting...' : 'Delete Account' }}
         </button>

@@ -14,7 +14,9 @@ watch(
     (val) => {
         if (val?.message || val?.error) {
             flashMessage.value = val.message ?? val.error ?? '';
-            flashType.value = val.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
+            flashType.value = val.message
+                ? 'bg-green-600 text-surface-50'
+                : 'bg-red-600 text-surface-50';
             showFlash.value = true;
             setTimeout(() => (showFlash.value = false), 3000);
         }
@@ -25,7 +27,7 @@ watch(
 
 <template>
     <header
-        class="relative mx-auto border-b border-gray-200 px-4 pt-4 pb-4 shadow-2xs sm:px-6 sm:pb-4"
+        class="relative mx-auto dark:border-b dark:border-surface-800 px-4 pt-4 pb-4 shadow-2xs sm:px-6 sm:pb-4 bg-surface-50 dark:bg-surface-900"
     >
         <nav
             class="relative flex items-center justify-between sm:h-10 md:justify-center"
@@ -45,7 +47,7 @@ watch(
                     </a>
                     <div class="-mr-2 flex items-center md:hidden">
                         <button
-                            class="inline-flex items-center justify-center rounded-md bg-gray-50 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-gray-50 focus:outline-none focus:ring-inset"
+                            class="inline-flex items-center justify-center rounded-md bg-surface-200 p-2 text-accent-700 hover:bg-surface-300 hover:text-accent-800 focus:ring-2 focus:ring-accent-500 focus:outline-none focus:ring-inset dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
                             type="button"
                             aria-expanded="false"
                         >
@@ -71,8 +73,8 @@ watch(
                         v-if="$page.props.can?.accessDashboard"
                         :href="dashboard()"
                         view-transition
-                        class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                        :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/admin') }"
+                        class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-surface-200 px-4 py-2 text-base text-accent-700 shadow hover:bg-surface-300 hover:text-accent-800 dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
+                        :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/admin') }"
                     >
                         Control Center
                     </Link>
@@ -82,24 +84,24 @@ watch(
                 <Link
                     :href="home()"
                     view-transition
-                    class="list-none text-base font-normal text-gray-500 hover:text-gray-900"
-                    :class="{ 'font-semibold text-gray-700': $page.url === '/' }"
+                    class="list-none text-base font-normal text-accent-700 hover:text-accent-800 dark:text-accent-400 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url === '/' }"
                 >
                     Mir
                 </Link>
                 <Link
                     :href="blog()"
                     view-transition
-                    class="list-none text-base font-normal text-gray-500 hover:text-gray-900"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/blog') }"
+                    class="list-none text-base font-normal text-accent-700 hover:text-accent-800 dark:text-accent-400 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/blog') }"
                 >
                     Blog
                 </Link>
                 <Link
                     :href="about()"
                     view-transition
-                    class="list-none text-base font-normal text-gray-500 hover:text-gray-900"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/about') }"
+                    class="list-none text-base font-normal text-accent-700 hover:text-accent-800 dark:text-accent-400 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/about') }"
                 >
                     About
                 </Link>
@@ -111,8 +113,8 @@ watch(
                     v-if="!user"
                     :href="login()"
                     view-transition
-                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/login') }"
+                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-surface-200 px-4 py-2 text-base text-accent-700 shadow hover:bg-surface-300 hover:text-accent-800 dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/login') }"
                 >
                     Sign in
                 </Link>
@@ -120,8 +122,8 @@ watch(
                     v-if="!user"
                     :href="register()"
                     view-transition
-                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/register') }"
+                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-surface-200 px-4 py-2 text-base text-accent-700 shadow hover:bg-surface-300 hover:text-accent-800 dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/register') }"
                 >
                     Register
                 </Link>
@@ -129,8 +131,8 @@ watch(
                     v-if="user"
                     href="/profile"
                     view-transition
-                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
-                    :class="{ 'font-semibold text-gray-700': $page.url.startsWith('/profile') }"
+                    class="font-base mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-surface-200 px-4 py-2 text-base text-accent-700 shadow hover:bg-surface-300 hover:text-accent-800 dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
+                    :class="{ 'font-semibold text-accent-700': $page.url.startsWith('/profile') }"
                 >
                     Profile
                 </Link>
@@ -140,7 +142,7 @@ watch(
                     method="post"
                     as="button"
                     view-transition
-                    class="mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-white px-4 py-2 text-base text-gray-900 shadow hover:bg-gray-50"
+                    class="mx-2 inline-flex cursor-pointer items-center rounded-full border border-transparent bg-surface-200 px-4 py-2 text-base text-accent-700 shadow hover:bg-surface-300 hover:text-accent-800 dark:bg-surface-800 dark:text-accent-400 dark:hover:bg-surface-700 dark:hover:text-accent-300"
                 >
                     Logout
                 </Link>
@@ -148,7 +150,7 @@ watch(
         </nav>
     </header>
     <main
-        class="relative container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6"
+        class="relative container mx-auto min-h-[calc(100vh-72px)] max-w-4xl p-4 shadow-sm sm:px-6 bg-surface-50 dark:bg-surface-900"
     >
         <Transition
             enter-active-class="transition duration-300 ease-out"
@@ -168,10 +170,10 @@ watch(
         </Transition>
         <slot />
     </main>
-    <footer class="bg-gray-900 p-4 text-center text-white">
+    <footer class="bg-surface-800 p-4 text-center dark:bg-surface-950">
         <a
             href="#"
-            class="mb-5 flex items-center justify-center text-2xl font-semibold text-gray-500 hover:text-gray-400"
+            class="mb-5 flex items-center justify-center text-2xl font-semibold text-accent-400 hover:text-accent-300"
         >
             <img
                 src="https://www.svgrepo.com/show/470685/space-station.svg"
@@ -182,7 +184,7 @@ watch(
         </a>
         <ul class="mt-5 flex justify-center space-x-5">
             <li>
-                <a href="#" class="text-gray-500 hover:text-gray-400">
+                <a href="#" class="text-accent-400 hover:text-accent-300">
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             fill-rule="evenodd"
@@ -193,7 +195,7 @@ watch(
                 </a>
             </li>
             <li>
-                <a href="#" class="text-gray-500 hover:text-gray-400">
+                <a href="#" class="text-accent-400 hover:text-accent-300">
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             fill-rule="evenodd"

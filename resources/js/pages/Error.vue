@@ -26,9 +26,9 @@ const description = computed(
 
 <template>
     <div class="flex flex-col items-center justify-center min-h-[50vh]">
-        <h1 class="text-6xl font-bold text-gray-300">{{ status }}</h1>
-        <h2 class="text-2xl font-bold mt-4">{{ title }}</h2>
-        <p class="text-gray-500 mt-2">{{ description }}</p>
-        <a href="/" class="mt-6 text-indigo-600 underline">Go home</a>
+        <h1 class="text-6xl font-bold text-surface-300 dark:text-surface-600">{{ status }}</h1>
+        <h2 class="text-2xl font-bold mt-4 text-surface-900 dark:text-surface-100">{{ title }}</h2>
+        <p class="text-surface-600 mt-2 dark:text-surface-400">{{ description }}</p>
+        <a href="/" class="mt-6 text-accent-600 underline dark:text-accent-400">Go home</a>
     </div>
 </template>

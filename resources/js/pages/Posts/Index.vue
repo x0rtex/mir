@@ -37,11 +37,11 @@ const formatDate = (date: string | null) =>
 <template>
     <Head title="Blog" />
     <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900">All Posts</h1>
+        <h1 class="text-3xl font-bold text-surface-900 dark:text-surface-100">All Posts</h1>
         <Link
             v-if="can.createPosts"
             :href="create().url"
-            class="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white shadow-sm transition duration-200 hover:bg-blue-700"
+            class="cursor-pointer rounded-md bg-accent-600 px-4 py-2 font-semibold text-surface-50 shadow-sm transition duration-200 hover:bg-accent-500 dark:bg-accent-500 dark:text-surface-950 dark:hover:bg-accent-400"
         >
             Create New Post
         </Link>
@@ -50,7 +50,7 @@ const formatDate = (date: string | null) =>
         <li
             v-for="post in posts.data"
             :key="post.id"
-            class="mb-5 max-w-md overflow-hidden rounded-xl bg-white shadow-md md:max-w-4xl"
+            class="mb-5 max-w-md overflow-hidden rounded-xl bg-surface-200 shadow-md md:max-w-4xl dark:bg-surface-800"
         >
             <article class="md:flex">
                 <section class="md:shrink-0">
@@ -60,23 +60,23 @@ const formatDate = (date: string | null) =>
                     />
                 </section>
                 <section class="p-8">
-                    <time class="text-sm font-semibold tracking-wide text-indigo-500 uppercase">
+                    <time class="text-sm font-semibold tracking-wide text-accent-600 uppercase dark:text-accent-400">
                         {{ formatDate(post.published_at) }}
                     </time>
                     <a
                         :href="`/blog/${post.slug}`"
-                        class="mt-1 block text-lg leading-tight font-medium text-black hover:underline"
+                        class="mt-1 block text-lg leading-tight font-medium text-surface-900 hover:underline dark:text-surface-100"
                     >
                         {{ post.title }}
                     </a>
-                    <p class="mt-2 text-slate-500">
+                    <p class="mt-2 text-surface-600 dark:text-surface-400">
                         {{ post.excerpt }}
                     </p>
                     <div v-if="can.editPosts || can.deletePosts" class="mt-3 flex gap-2">
                         <Link
                             v-if="can.editPosts"
                             :href="edit(post.slug).url"
-                            class="rounded bg-gray-200 px-2 py-1 text-sm hover:bg-gray-300"
+                            class="cursor-pointer rounded bg-surface-300 px-2 py-1 text-sm text-surface-900 hover:bg-accent-500 hover:text-surface-50 dark:bg-surface-700 dark:text-surface-100 dark:hover:bg-accent-600"
                         >
                             Edit
                         </Link>
@@ -84,7 +84,7 @@ const formatDate = (date: string | null) =>
                             v-if="can.deletePosts"
                             @click="deletePost(post)"
                             type="button"
-                            class="cursor-pointer rounded bg-red-100 px-2 py-1 text-sm text-red-600 hover:bg-red-200"
+                            class="cursor-pointer rounded bg-red-100 px-2 py-1 text-sm text-red-600 hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800"
                         >
                             Delete
                         </button>
@@ -96,14 +96,14 @@ const formatDate = (date: string | null) =>
             <Link
                 v-if="posts.prev_page_url"
                 :href="posts.prev_page_url"
-                class="rounded bg-white px-4 py-2 shadow hover:bg-gray-50"
+                class="rounded bg-surface-200 px-4 py-2 text-surface-900 shadow hover:bg-surface-300 dark:bg-surface-800 dark:text-surface-100 dark:hover:bg-surface-700"
             >
                 Previous
             </Link>
             <Link
                 v-if="posts.next_page_url"
                 :href="posts.next_page_url"
-                class="rounded bg-white px-4 py-2 shadow hover:bg-gray-50"
+                class="rounded bg-surface-200 px-4 py-2 text-surface-900 shadow hover:bg-surface-300 dark:bg-surface-800 dark:text-surface-100 dark:hover:bg-surface-700"
             >
                 Next
             </Link>

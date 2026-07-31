@@ -56,54 +56,54 @@ const submit = () => {
 <template>
     <form @submit.prevent="submit" class="mx-auto max-w-3xl">
         <div class="mb-4">
-            <label class="mb-1 block text-sm font-semibold">Title</label>
+            <label class="mb-1 block text-sm font-semibold text-surface-800 dark:text-surface-200">Title</label>
             <input
                 v-model="form.title"
                 type="text"
                 @input="updateSlug"
                 required
-                class="w-full rounded border p-2 shadow-sm"
+                class="w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
             />
             <p v-if="form.errors.title" class="mt-1 text-sm text-red-500">{{ form.errors.title }}</p>
         </div>
 
         <div class="mb-4">
-            <label class="mb-1 block text-sm font-semibold">Slug</label>
+            <label class="mb-1 block text-sm font-semibold text-surface-800 dark:text-surface-200">Slug</label>
             <input
                 v-model="form.slug"
                 type="text"
-                class="w-full rounded border p-2 shadow-sm"
+                class="w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
             />
             <p v-if="form.errors.slug" class="mt-1 text-sm text-red-500">{{ form.errors.slug }}</p>
         </div>
 
         <div class="mb-4">
-            <label class="mb-1 block text-sm font-semibold">Body (markdown)</label>
+            <label class="mb-1 block text-sm font-semibold text-surface-800 dark:text-surface-200">Body (markdown)</label>
             <textarea
                 v-model="form.body"
                 rows="16"
                 required
-                class="w-full rounded border p-2 font-mono text-sm shadow-sm"
+                class="w-full rounded border border-surface-300 bg-surface-200 p-2 font-mono text-sm text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
             ></textarea>
             <p v-if="form.errors.body" class="mt-1 text-sm text-red-500">{{ form.errors.body }}</p>
         </div>
 
         <div class="mb-4">
-            <label class="mb-1 block text-sm font-semibold">Excerpt</label>
+            <label class="mb-1 block text-sm font-semibold text-surface-800 dark:text-surface-200">Excerpt</label>
             <textarea
                 v-model="form.excerpt"
                 rows="3"
-                class="w-full rounded border p-2 shadow-sm"
+                class="w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
             ></textarea>
             <p v-if="form.errors.excerpt" class="mt-1 text-sm text-red-500">{{ form.errors.excerpt }}</p>
         </div>
 
         <div class="mb-6">
-            <label class="mb-1 block text-sm font-semibold">Publish date (leave empty for draft)</label>
+            <label class="mb-1 block text-sm font-semibold text-surface-800 dark:text-surface-200">Publish date (leave empty for draft)</label>
             <input
                 v-model="form.published_at"
                 type="datetime-local"
-                class="w-full rounded border p-2 shadow-sm"
+                class="w-full rounded border border-surface-300 bg-surface-200 p-2 text-surface-900 shadow-sm dark:border-surface-700 dark:bg-surface-800 dark:text-surface-100"
             />
             <p v-if="form.errors.published_at" class="mt-1 text-sm text-red-500">
                 {{ form.errors.published_at }}
@@ -113,7 +113,7 @@ const submit = () => {
         <button
             type="submit"
             :disabled="form.processing"
-            class="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+            class="cursor-pointer rounded-md bg-accent-600 px-4 py-2 font-semibold text-surface-50 hover:bg-accent-500 disabled:opacity-50 dark:bg-accent-500 dark:text-surface-950 dark:hover:bg-accent-400"
         >
             {{ form.processing ? 'Saving...' : props.post ? 'Update Post' : 'Create Post' }}
         </button>
