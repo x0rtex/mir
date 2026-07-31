@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Link, useForm } from "@inertiajs/vue3";
-import { register } from "@/routes";
+import { Link, useForm } from '@inertiajs/vue3';
+import { register } from '@/routes';
 
 const form = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     remember: false,
 });
 
 const submit = () => {
-    form.post("/login");
+    form.post('/login');
 };
 </script>
 

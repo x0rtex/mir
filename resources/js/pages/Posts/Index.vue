@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link } from '@inertiajs/vue3';
 
 interface PaginatedPosts {
     data: { id: number; published_at: string; title: string; excerpt: string; slug: string }[];
     links: { url: string | null; label: string; active: boolean }[];
     meta: { current_page: number; last_page: number; total: number; per_page: number };
     total: number;
+    prev_page_url: string | null;
+    next_page_url: string | null;
 }
 
 interface Props {

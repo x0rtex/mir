@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { destroy, password, update } from "@/routes/profile";
+import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { destroy, password, update } from '@/routes/profile';
 
 const user = usePage().props.auth?.user ?? null;
 
 const profileForm = useForm({
-    name: user?.name ?? "",
-    email: user?.email ?? "",
+    name: user?.name ?? '',
+    email: user?.email ?? '',
     avatar: null as File | null,
 });
 
@@ -25,14 +25,14 @@ const selectAvatar = (e: Event) => {
 const updateProfile = () => {
     profileForm.post(update().url, {
         preserveScroll: true,
-        onSuccess: () => profileForm.reset("avatar"),
+        onSuccess: () => profileForm.reset('avatar'),
     });
 };
 
 const passwordForm = useForm({
-    current_password: "",
-    password: "",
-    password_confirmation: "",
+    current_password: '',
+    password: '',
+    password_confirmation: '',
 });
 
 const updatePassword = () => {
@@ -44,7 +44,7 @@ const updatePassword = () => {
 
 const deleteForm = useForm({});
 const confirmDelete = () => {
-    if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
+    if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
         deleteForm.delete(destroy().url);
     }
 };
@@ -92,7 +92,7 @@ const confirmDelete = () => {
 
             <div class="flex grow flex-col items-center">
                 <img
-                    :src="avatarPreview ?? user?.avatar_url ?? 'https://placehold.co/36x36'"
+                    :src="avatarPreview ?? user?.avatar ?? 'https://placehold.co/36x36'"
                     alt="PFP"
                     class="mx-auto mb-3 h-36 w-36 rounded-full"
                 />

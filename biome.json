@@ -30,7 +30,7 @@
     "javascript": {
         "experimentalEmbeddedSnippetsEnabled": true,
         "formatter": {
-            "quoteStyle": "double",
+            "quoteStyle": "single",
             "semicolons": "always",
             "trailingCommas": "all"
         }
@@ -58,12 +58,6 @@
         }
     ],
     "files": {
-        "includes": [
-            "**",
-            "!composer.json",
-            "!boost.json",
-            "!opencode.json",
-            "!tsconfig.json"
-        ]
+        "includes": ["**", "!composer.json", "!boost.json", "!opencode.json", "!tsconfig.json"]
     }
 }

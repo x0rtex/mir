@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { Link, usePage } from "@inertiajs/vue3";
-import { computed, ref, watch } from "vue";
-import { about, blog, home, login, logout, register } from "@/routes";
-import { dashboard } from "@/routes/admin";
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
+import { about, blog, home, login, logout, register } from '@/routes';
+import { dashboard } from '@/routes/admin';
 
 const user = computed(() => usePage().props.auth?.user ?? null);
 const flash = computed(() => usePage().props.flash);
 const showFlash = ref(false);
-const flashMessage = ref("");
-const flashType = ref("");
+const flashMessage = ref('');
+const flashType = ref('');
 watch(
     flash,
     (val) => {
         if (val?.message || val?.error) {
-            flashMessage.value = val.message ?? val.error ?? "";
-            flashType.value = val.message ? "bg-green-500 text-white" : "bg-red-500 text-white";
+            flashMessage.value = val.message ?? val.error ?? '';
+            flashType.value = val.message ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
             showFlash.value = true;
             setTimeout(() => (showFlash.value = false), 3000);
         }

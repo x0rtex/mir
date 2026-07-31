@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Form, Head, router, usePage } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Form, Head, router, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 interface Props {
     post: {
@@ -30,7 +30,7 @@ const props = defineProps<Props>();
 const user = usePage().props.auth?.user ?? null;
 
 const editingCommentId = ref<number | null>(null);
-const editBody = ref("");
+const editBody = ref('');
 
 const startEdit = (comment: { id: number; body: string }) => {
     editingCommentId.value = comment.id;
@@ -39,7 +39,7 @@ const startEdit = (comment: { id: number; body: string }) => {
 
 const cancelEdit = () => {
     editingCommentId.value = null;
-    editBody.value = "";
+    editBody.value = '';
 };
 
 const saveEdit = (commentId: number) => {
@@ -50,14 +50,14 @@ const saveEdit = (commentId: number) => {
             preserveScroll: true,
             onSuccess: () => {
                 editingCommentId.value = null;
-                editBody.value = "";
+                editBody.value = '';
             },
         },
     );
 };
 
 const deleteComment = (commentId: number) => {
-    if (confirm("Delete this comment?")) {
+    if (confirm('Delete this comment?')) {
         router.delete(`/comments/${commentId}`, { preserveScroll: true });
     }
 };
