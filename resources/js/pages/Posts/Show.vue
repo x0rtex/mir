@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Form, Head, Link, router, usePage } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { destroy, edit } from '@/routes/posts';
 
 interface Props {
@@ -15,54 +15,10 @@ interface Props {
         published_at: string;
         body_html: string;
         excerpt: string;
-        comments: {
-            id: number;
-            body: string;
-            created_at: string;
-            user_id: number;
-            user: {
-                id: number;
-                name: string;
-                avatar_url?: string;
-            } | null;
-        }[];
     };
 }
 const props = defineProps<Props>();
-const user = usePage().props.auth?.user ?? null;
-
-const editingCommentId = ref<number | null>(null);
-const editBody = ref('');
-
-const startEdit = (comment: { id: number; body: string }) => {
-    editingCommentId.value = comment.id;
-    editBody.value = comment.body;
-};
-
-const cancelEdit = () => {
-    editingCommentId.value = null;
-    editBody.value = '';
-};
-
-const saveEdit = (commentId: number) => {
-    router.put(
-        `/comments/${commentId}`,
-        { body: editBody.value },
-        {
-            preserveScroll: true,
-            onSuccess: () => {
-                editingCommentId.value = null;
-                editBody.value = '';
-            },
-        },
-    );
-};
-
-const deleteComment = (commentId: number) => {
-    if (confirm('Delete this comment?')) {
-        router.delete(`/comments/${commentId}`, { preserveScroll: true });
-    }
-};
+const giscusContainer = ref<HTMLElement | null>(null);
 
 const can = usePage().props.can ?? {};
 
@@ -74,6 +30,48 @@ const deletePost = () => {
 
 const formatDate = (date: string) =>
     new Date(date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const loadGiscus = () => {
+    // teardown previous instance (SPA navigation between posts)
+    document.getElementById('giscus-script')?.remove();
+    if (giscusContainer.value) {
+        giscusContainer.value.innerHTML = '';
+    }
+
+    // fresh mount point
+    const container = document.createElement('div');
+    container.className = 'giscus';
+    giscusContainer.value?.appendChild(container);
+
+    // fresh loader script
+    const script = document.createElement('script');
+    script.id = 'giscus-script';
+    script.async = true;
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'x0rtex/mir');
+    script.setAttribute('data-repo-id', 'R_kgDOTeIZTw');
+    script.setAttribute('data-category', 'Blog');
+    script.setAttribute('data-category-id', 'DIC_kwDOTeIZT84DCZY-');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', 'light');
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('data-loading', 'lazy');
+    script.setAttribute('crossorigin', 'anonymous');
+    document.head.appendChild(script);
+};
+
+onMounted(loadGiscus);
+
+watch(() => props.post.id, loadGiscus);
+
+onUnmounted(() => {
+    document.getElementById('giscus-script')?.remove();
+    if (giscusContainer.value) giscusContainer.value.innerHTML = '';
+});
 </script>
 
 <template>
@@ -120,96 +118,5 @@ const formatDate = (date: string) =>
         </div>
     </div>
 
-    <div class="mx-auto my-8 max-w-3xl">
-        <h3 class="font-bold">Comments ({{ props.post.comments.length }})</h3>
-        <Form
-            action="/comments"
-            method="post"
-            preserve-scroll
-            resetOnSuccess
-            #default="{ processing }"
-        >
-            <article v-for="comment in props.post.comments" :key="comment.id" class="flex flex-col">
-                <div class="my-1.5 rounded-md border border-gray-200 p-2">
-                    <div class="flex items-center gap-2">
-                        <img
-                            :src="comment.user?.avatar_url ?? 'https://placehold.co/32x32'"
-                            class="h-8 w-8 rounded-full border object-cover"
-                        />
-                        <h3 class="font-bold">
-                            {{ comment.user?.name }}
-                        </h3>
-                        <div class="ml-auto flex items-center gap-1">
-                            <button
-                                v-if="user?.id === comment.user_id"
-                                @click="
-                                    if (editingCommentId === comment.id) {
-                                        cancelEdit();
-                                    } else {
-                                        startEdit(comment);
-                                    }
-                                "
-                                type="button"
-                                class="cursor-pointer px-1 text-gray-400 hover:text-gray-600"
-                            >
-                                ✎
-                            </button>
-                            <button
-                                v-if="user?.id === comment.user_id"
-                                @click="deleteComment(comment.id)"
-                                type="button"
-                                class="cursor-pointer px-1 text-red-400 hover:text-red-600"
-                            >
-                                X
-                            </button>
-                        </div>
-                    </div>
-                    <div v-if="editingCommentId === comment.id">
-                        <textarea
-                            v-model="editBody"
-                            rows="3"
-                            class="mt-2 w-full rounded border p-2 text-sm"
-                        ></textarea>
-                        <div class="mt-1 flex gap-2">
-                            <button
-                                @click="saveEdit(comment.id)"
-                                type="button"
-                                class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white hover:bg-indigo-600"
-                            >
-                                Save Comment
-                            </button>
-                            <button
-                                @click="cancelEdit"
-                                class="cursor-pointer rounded-md bg-gray-200 px-2.5 py-1.5 text-sm hover:bg-gray-300"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                    <p v-else class="mt-2 text-gray-600">{{ comment.body }}</p>
-                </div>
-            </article>
-
-            <section v-if="user">
-                <div class="my-2 w-full">
-                    <input type="hidden" name="post_id" :value="props.post.id" />
-                    <textarea
-                        name="body"
-                        placeholder="Write a comment..."
-                        required
-                        class="h-20 w-full resize-none rounded border border-gray-300 bg-gray-100 px-3 py-2 leading-normal font-medium placeholder-gray-400 focus:bg-gray-50 focus:outline-none"
-                    ></textarea>
-                </div>
-                <div class="flex w-full justify-end">
-                    <button
-                        type="submit"
-                        :disabled="processing"
-                        class="cursor-pointer rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm text-white hover:bg-indigo-600"
-                    >
-                        {{ processing ? 'Posting...' : 'Post Comment' }}
-                    </button>
-                </div>
-            </section>
-        </Form>
-    </div>
+    <div ref="giscusContainer" class="mx-auto my-8 max-w-3xl"></div>
 </template>

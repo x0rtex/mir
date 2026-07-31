@@ -21,7 +21,7 @@ class PostController extends Controller
 
     public function show(Post $post): Response
     {
-        $post->load(['user', 'comments.user']);
+        $post->load('user');
 
         return Inertia::render('Posts/Show', compact('post'));
     }

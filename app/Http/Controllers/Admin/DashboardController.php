@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Routing\Attributes\Controllers\Middleware;
@@ -18,7 +17,6 @@ class DashboardController extends Controller
     {
         $stats = [
             'posts' => Post::count(),
-            'comments' => Comment::count(),
             'users' => User::count(),
         ];
 

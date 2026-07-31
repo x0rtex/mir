@@ -51,16 +51,6 @@ Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])
     ->middleware('permission:delete posts')
     ->name('posts.destroy');
 
-Route::post('/comments', [CommentController::class, 'store'])
-    ->middleware('auth')
-    ->name('comments.store');
-Route::put('/comments/{comment}', [CommentController::class, 'update'])
-    ->middleware('auth')
-    ->name('comments.update');
-Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('comments.destroy');
-
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });

@@ -57,10 +57,4 @@ class User extends Authenticatable
             get: fn () => $this->avatar ? Storage::url($this->avatar) : null,
         );
     }
-
-    /** @return HasMany<Comment, $this> */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class)->latest();
-    }
 }

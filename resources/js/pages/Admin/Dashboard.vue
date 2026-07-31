@@ -2,7 +2,7 @@
 import { Head, usePage } from '@inertiajs/vue3';
 
 interface Props {
-    stats: { posts: number; comments: number; users: number };
+    stats: { posts: number; users: number };
 }
 
 const page = usePage();
