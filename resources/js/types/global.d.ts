@@ -21,6 +21,9 @@ declare module '@inertiajs/core' {
             sidebarOpen: boolean;
             can: {
                 accessDashboard: boolean;
+                createPosts: boolean;
+                editPosts: boolean;
+                deletePosts: boolean;
             };
             flash: {
                 message?: string;

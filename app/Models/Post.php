@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Database\Factories\PostFactory;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,9 +25,12 @@ class Post extends Model
         return ['published_at' => 'datetime'];
     }
 
-    protected function serializeDate(DateTimeInterface $date): string
+    /** @param Builder<Post> $query
+     * @return Builder<Post>
+     */
+    public function scopePublished(Builder $query): Builder
     {
-        return $date->format('M j, Y');
+        return $query->whereNotNull('published_at')->where('published_at', '<=', now());
     }
 
     /** @return Attribute<string, null> */
