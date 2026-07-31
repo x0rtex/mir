@@ -36,8 +36,5 @@ class RolePermissionSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => bcrypt('password'),
         ])->assignRole('admin');
-
-        $user = User::find(1);
-        $user->assignRole('admin');
     }
 }
