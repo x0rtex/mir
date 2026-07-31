@@ -63,8 +63,8 @@
         ],
         "ci:check": [
             "Composer\\Config::disableProcessTimeout",
-            "bun run lint:check",
-            "bun run format:check",
+            "bun run check",
+            "bun run check:format",
             "bun run types:check",
             "@test"
         ],
