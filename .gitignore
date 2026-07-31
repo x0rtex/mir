@@ -27,3 +27,4 @@ yarn-error.log
 /.vscode
 /.zed
 .agents/
+/resources/js/components/ui

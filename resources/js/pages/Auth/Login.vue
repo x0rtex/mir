@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { register } from '@/routes';
+import { Link, useForm } from "@inertiajs/vue3";
+import { register } from "@/routes";
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
 });
 
 const submit = () => {
-    form.post('/login');
+    form.post("/login");
 };
 </script>
 
@@ -37,16 +37,10 @@ const submit = () => {
                 {{ form.errors.password }}
             </p>
             <input type="checkbox" v-model="form.remember" class="mb-2" /> Remember Me
-            <button
-                type="submit"
-                :disabled="form.processing"
-                class="w-full rounded border p-2 shadow-sm"
-            >
-                {{ form.processing ? 'Logging in...' : 'Login' }}
+            <button type="submit" :disabled="form.processing" class="w-full rounded border p-2 shadow-sm">
+                {{ form.processing ? "Logging in..." : "Login" }}
             </button>
         </form>
-        <p class="p-2 text-sm">
-            Don't have an account? <Link :href="register()" view-transition>Register here</Link>
-        </p>
+        <p class="p-2 text-sm">Don't have an account? <Link :href="register()" view-transition>Register here</Link></p>
     </div>
 </template>
