@@ -50,6 +50,7 @@ class User extends Authenticatable
         ];
     }
 
+    /** @return Attribute<string|null, null> */
     protected function avatarUrl(): Attribute
     {
         return Attribute::make(

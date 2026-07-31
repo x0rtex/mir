@@ -30,6 +30,7 @@ class Post extends Model
         return $date->format('M j, Y');
     }
 
+    /** @return Attribute<string, null> */
     protected function bodyHtml(): Attribute
     {
         return Attribute::make(

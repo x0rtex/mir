@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    public function show(Request $request)
+    public function show(Request $request): Response
     {
         return Inertia::render('Profile/Show');
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -36,7 +38,7 @@ class ProfileController extends Controller
         return back()->with('message', 'Profile updated.');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'current_password' => 'required|current_password',
@@ -50,7 +52,7 @@ class ProfileController extends Controller
         return back()->with('message', 'Password updated.');
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
         $user = $request->user();
         $user->comments()->delete();
