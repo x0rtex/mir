@@ -35,6 +35,22 @@ Route::get('/blog', [PostController::class, 'index'])
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])
     ->name('posts.show');
 
+Route::get('/posts/create', [PostController::class, 'create'])
+    ->middleware('permission:create posts')
+    ->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])
+    ->middleware('permission:create posts')
+    ->name('posts.store');
+Route::get('/posts/{post:slug}/edit', [PostController::class, 'edit'])
+    ->middleware('permission:edit posts')
+    ->name('posts.edit');
+Route::put('/posts/{post:slug}', [PostController::class, 'update'])
+    ->middleware('permission:edit posts')
+    ->name('posts.update');
+Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])
+    ->middleware('permission:delete posts')
+    ->name('posts.destroy');
+
 Route::post('/comments', [CommentController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { Form, Head, router, usePage } from '@inertiajs/vue3';
+import { Form, Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { destroy, edit } from '@/routes/posts';
 
 interface Props {
     post: {
         id: number;
         title: string;
+        slug: string;
         user: {
             id: number;
             name: string;
@@ -61,6 +63,17 @@ const deleteComment = (commentId: number) => {
         router.delete(`/comments/${commentId}`, { preserveScroll: true });
     }
 };
+
+const can = usePage().props.can ?? {};
+
+const deletePost = () => {
+    if (confirm(`Delete "${props.post.title}"?`)) {
+        router.delete(destroy(props.post.slug).url);
+    }
+};
+
+const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
 </script>
 
 <template>
@@ -68,13 +81,32 @@ const deleteComment = (commentId: number) => {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl">
             <div class="pt-4 pb-8">
-                <h1 class="mb-2 text-3xl font-bold">
-                    {{ props.post.title }}
-                </h1>
+                <div class="mb-2 flex items-start justify-between gap-4">
+                    <h1 class="text-3xl font-bold">
+                        {{ props.post.title }}
+                    </h1>
+                    <div v-if="can.editPosts || can.deletePosts" class="flex shrink-0 gap-2">
+                        <Link
+                            v-if="can.editPosts"
+                            :href="edit(props.post.slug).url"
+                            class="rounded bg-gray-200 px-3 py-1.5 text-sm hover:bg-gray-300"
+                        >
+                            Edit
+                        </Link>
+                        <button
+                            v-if="can.deletePosts"
+                            @click="deletePost"
+                            type="button"
+                            class="cursor-pointer rounded bg-red-100 px-3 py-1.5 text-sm text-red-600 hover:bg-red-200"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
                 <p class="text-sm text-gray-500">
                     Published on
-                    <time datetime="">
-                        {{ props.post.published_at }}
+                    <time :datetime="props.post.published_at">
+                        {{ formatDate(props.post.published_at) }}
                     </time>
                     by {{ props.post.user?.name ?? 'Unknown Author' }}
                 </p>
